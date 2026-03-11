@@ -1,0 +1,270 @@
+/* Main Content */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    background: linear-gradient(to right, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.calculator-container {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 1.5rem;
+    padding: 2.5rem 3rem;
+    width: 100%;
+    max-width: 550px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.8s ease-out;
+}
+
+@media (max-width: 600px) {
+    .calculator-container {
+        padding: 2rem 1.5rem;
+    }
+}
+
+.calc-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 1.5rem;
+}
+
+.calc-header svg {
+    width: 28px;
+    height: 28px;
+    color: var(--accent-color);
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+}
+
+.calc-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Forms */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper:focus-within {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    background: rgba(15, 23, 42, 0.6);
+}
+
+.input-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    margin-right: 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper.ingame-group:focus-within .input-icon {
+    color: #fbbf24;
+    filter: drop-shadow(0 0 6px var(--gold-glow));
+    transform: scale(1.1);
+}
+
+.input-wrapper.premium-group:focus-within .input-icon {
+    color: #a78bfa;
+    filter: drop-shadow(0 0 6px var(--purple-glow));
+    transform: scale(1.1);
+}
+
+.input-wrapper.game-selector-group {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid var(--accent-color);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 2rem;
+}
+
+.input-wrapper.game-selector-group:focus-within {
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.input-wrapper.game-selector-group:focus-within .input-icon {
+    color: #60a5fa;
+    transform: scale(1.1);
+}
+
+.form-control {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.125rem;
+    outline: none;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    appearance: none;
+}
+
+.form-control option {
+    background: #1e293b;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+select.form-control {
+    cursor: pointer;
+}
+
+.select-chevron {
+    color: var(--text-secondary);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+.form-control::placeholder {
+    color: rgba(148, 163, 184, 0.5);
+    font-weight: 400;
+}
+
+/* Button */
+.convert-btn {
+    width: 100%;
+    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
+}
+
+.convert-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+    background: linear-gradient(to right, #2563eb, #7c3aed);
+}
+
+/* Results Card */
+.results-section {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid var(--glass-border);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.results-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #34d399, #3b82f6);
+}
+
+.results-header {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.total-value-container {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #34d399;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 20px var(--green-glow);
+    line-height: 1;
+}
+
+.total-value-container sup {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgba(52, 211, 153, 0.8);
+    margin-top: -1rem;
+}
+
+.breakdown-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.breakdown-label {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 400;
+}
+
+.breakdown-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #fbbf24;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(251, 191, 36, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid rgba(251, 191, 36, 0.2);
+}

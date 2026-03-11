@@ -1,0 +1,21 @@
+# target
+target/
+
+# IDE files
+.idea/
+*.iml
+.settings/
+.project/
+.classpath/
+.vscode/
+.smarttomcat/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Other
+*.class
+*.war
+*.ear
+*.log
