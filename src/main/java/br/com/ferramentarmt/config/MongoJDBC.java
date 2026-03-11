@@ -41,7 +41,7 @@ public class MongoJDBC {
         MongoDatabase database = null;
         try {
             MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017/");
-            database = mongoClient.getDatabase("DespesasDB");
+            database = mongoClient.getDatabase("rmt_tool_db");
 
             System.out.println("Conexão ao MongoDB estabelecida com sucesso!");
 
@@ -53,10 +53,15 @@ public class MongoJDBC {
     public static MongoDatabase conect() {
         String username = System.getProperty("user.name");
         switch (username) {
-            case "naquta":
-                return notebook();
             case "migri":
-                return trabalho();
+                return notebook();
+           /* case "migri":
+                MongoDatabase db = trabalho();
+                if (db == null) {
+                    System.out.println("Remote connection failed, trying local connection...");
+                    return notebook();
+                }
+                return db;*/
             default:
                 return null;
 

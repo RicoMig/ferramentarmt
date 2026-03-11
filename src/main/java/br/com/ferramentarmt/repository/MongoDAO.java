@@ -5,6 +5,7 @@ import com.mongodb.MongoWriteException;
 import org.bson.Document;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class MongoDAO {
     public static void insert (String collection, Document document){
@@ -20,10 +21,21 @@ public class MongoDAO {
         }
     }
 
-    public static void viewAll(String collection, LinkedList<Document> documents){
-        for(Document document: documents){
+    public static void viewAll(String collection){
+        for(Document document:  MongoJDBC.conect().getCollection(collection).find()){
             System.out.println(document.toString());
         }
     }
 
+    public static List<Document> search(String collection, Document query){
+        List<Document> documentsFound = new LinkedList<>();
+        for(Document doc: MongoJDBC.conect().getCollection(collection).find(query)){
+            documentsFound.add(doc);
+        }
+        return documentsFound;
+    }
+
+    public static void main(String[] args) {
+
+    }
 }

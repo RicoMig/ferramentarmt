@@ -10,9 +10,12 @@ This project is an RMT (Real Money Trading) management tool for game-related cal
 - **Jakarta Servlet**: For handled web requests.
 
 ### Features
-- Game calculation API.
-- MongoDB DAO pattern implementation.
-- Singleton connection management.
+- **End-to-End Calculator**: Complete flow from frontend to MongoDB.
+- **Dynamic Market Price**: Override system rates with live daily market values.
+- **Multi-Currency Support**: Choose between BRL, USD, and EUR as target currencies (BRL as base).
+- **MongoDB DAO Pattern**: Implementation with generic `MongoDAO` and specific `CalculatorDAO`.
+- **Automated Seeding**: Integrated script to synchronize database parameters with UI options.
+- **Singleton Connection**: Efficient MongoDB connection management.
 
 ---
 
@@ -26,6 +29,9 @@ Este projeto é uma ferramenta de gerenciamento de RMT (Real Money Trading) para
 - **Jakarta Servlet**: Para manipulação de requisições web.
 
 ### Funcionalidades
-- API de cálculos de jogos.
-- Implementação do padrão DAO com MongoDB.
-- Gerenciamento de conexão Singleton.
+- **Calculadora Ponta-a-Ponta**: Fluxo completo do frontend ao MongoDB.
+- **Preço de Mercado Dinâmico**: Sobrescrita de taxas do sistema com valores reais do mercado diário.
+- **Suporte Multi-Moeda**: Escolha entre BRL, USD e EUR como moedas de destino (BRL como base).
+- **Padrão DAO com MongoDB**: Implementação com `MongoDAO` genérico e `CalculatorDAO` específico.
+- **Seed Automatizado**: Script integrado para sincronizar parâmetros do banco com opções da UI.
+- **Gerenciamento Singleton**: Gerenciamento eficiente de conexão com MongoDB.

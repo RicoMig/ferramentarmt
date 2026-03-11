@@ -112,6 +112,43 @@
                         </div>
                     </div>
 
+                    <!-- Group D: Market Price (Dynamic Override) -->
+                    <div class="form-group">
+                        <label for="market-price-input">Current Market Price (In-Game cost for 1 Cash)</label>
+                        <div class="input-wrapper market-group">
+                            <div class="input-icon">
+                                <!-- Trending Up Icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                    <polyline points="17 6 23 6 23 12"></polyline>
+                                </svg>
+                            </div>
+                            <input type="number" id="market-price-input" class="form-control" placeholder="Standard DB Rate" min="0" step="any">
+                        </div>
+                        <small class="helper-text">Leave empty to use the standard database rate.</small>
+                    </div>
+
+                    <!-- Group C: Target Global Currency -->
+                    <div class="form-group">
+                        <label for="target-currency">Target Currency</label>
+                        <div class="input-wrapper currency-group">
+                            <div class="input-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                                </svg>
+                            </div>
+                            <select id="target-currency" class="form-control">
+                                <option value="BRL">BRL - Brazilian Real</option>
+                                <option value="USD">USD - US Dollar</option>
+                                <option value="EUR">EUR - Euro</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <!-- Action Button -->
                     <button type="submit" class="convert-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -128,12 +165,12 @@
                         <div class="results-header">Estimated Value</div>
 
                         <div class="total-value-container">
-                            <sup>R$</sup>
+                            <sup id="currency-symbol">R$</sup>
                             <span id="total-display">0.00</span>
                         </div>
 
                         <div class="breakdown-section">
-                            <span class="breakdown-label">Pay-Coin Equivalent</span>
+                            <span class="breakdown-label">Premium Equivalent</span>
                             <div class="breakdown-value">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
@@ -153,17 +190,21 @@
         </main>
 
         <script>
-            document.getElementById('calculator-form').addEventListener('submit', function(e) {
+            document.getElementById('calculator-form').addEventListener('submit', function (e) {
                 e.preventDefault();
 
                 const game = document.getElementById('game-selector').value;
                 const ingameAmount = parseFloat(document.getElementById('ingame-input').value) || 0;
                 const premiumAmount = parseFloat(document.getElementById('premium-input').value) || 0;
+                const marketPrice = parseFloat(document.getElementById('market-price-input').value) || 0;
+                const targetCurrency = document.getElementById('target-currency').value;
 
                 const data = {
                     game: game,
                     ingameAmount: ingameAmount,
-                    premiumAmount: premiumAmount
+                    premiumAmount: premiumAmount,
+                    customMarketPrice: marketPrice,
+                    targetCurrency: targetCurrency
                 };
 
                 fetch('api/calculate', {
@@ -173,15 +214,24 @@
                     },
                     body: JSON.stringify(data)
                 })
-                .then(response => response.json())
-                .then(result => {
-                    console.log('Success:', result);
-                    alert('Data received by back-end: ' + result.message);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error communicating with the back-end.');
-                });
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            // Update UI with calculated values
+                            document.getElementById('total-display').innerText = result.finalValue.toFixed(2);
+                            document.getElementById('paycoin-display').innerText = result.premiumEquivalent.toFixed(2);
+
+                            // Update Currency Symbol
+                            const symbolMap = { 'BRL': 'R$', 'USD': '$', 'EUR': '€' };
+                            document.getElementById('currency-symbol').innerText = symbolMap[result.currencyCode] || result.currencyCode;
+                        } else {
+                            alert('Error calculating: ' + (result.message || 'Unknown error'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error communicating with the back-end.');
+                    });
             });
         </script>
 
